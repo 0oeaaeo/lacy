@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Lease & Sublease Generator</title>
+    <title>Complete Lease & Sublease Generator</title>
     <style>
         /* Import a signature-style font */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
@@ -225,13 +225,25 @@
         <!-- MASTER LEASE SECTION -->
         <div id="master-lease-output">
             <div class="lease-header">CALIFORNIA RESIDENTIAL LEASE AGREEMENT</div>
-            <div class="lease-section"><p class="lease-section-header">1. THE PARTIES.</p><!-- ... Full master lease text ... --></div>
-            <!-- ... All 40 sections of the master lease would be here ... -->
-            <p><i>[Sections 1 through 39 of the Master Lease are included here as previously defined.]</i></p>
-             <div class="lease-section">
-                <p class="lease-section-header">40. ENTIRE AGREEMENT.</p>
-                <p>This Agreement contains all the terms agreed to by the Parties. IN WITNESS THEREOF, the Parties have caused this Agreement to be executed.</p>
-            </div>
+            
+            <div class="lease-section"><p class="lease-section-header">1. THE PARTIES.</p><p>This California Residential Lease Agreement (the “Agreement”) made on <span id="agreementDate-output" class="data-placeholder"></span> is between: <strong>Landlord Name:</strong> <span id="landlordName-output" class="data-placeholder"></span> (the “Landlord”) with a mailing address of <span id="landlordAddress-output" class="data-placeholder"></span> AND <strong>Tenant Name(s):</strong> <span id="tenantName-output" class="data-placeholder"></span> (the “Tenant”). The Landlord and Tenant are collectively referred to as the “Parties.”</p></div>
+            <div class="lease-section"><p class="lease-section-header">2. PROPERTY.</p><p>Landlord leases the property at <span id="propertyAddress-output" class="data-placeholder"></span> to the Tenant (the “Premises”).</p></div>
+            <div class="lease-section"><p class="lease-section-header">3. LEASE TERM.</p><p>This is a fixed lease. The Tenant shall occupy the Premises starting on <span id="leaseStartDate-output" class="data-placeholder"></span> and ending on <span id="leaseEndDate-output" class="data-placeholder"></span>.</p></div>
+            <div class="lease-section"><p class="lease-section-header">4. RENT.</p><p>Tenant shall pay Landlord monthly rent of $<span id="rentAmount-output" class="data-placeholder"></span>, due on the 1st day of each month.</p></div>
+            <div class="lease-section"><p class="lease-section-header">5. LATE FEE.</p><p>If Rent is not paid by the due date, a late fee may be imposed as allowed by California law.</p></div>
+            <div class="lease-section"><p class="lease-section-header">6. SECURITY DEPOSIT.</p><p>Upon execution of this Agreement, Tenant shall deposit $<span id="securityDepositAmount-output" class="data-placeholder"></span> with Landlord as a security deposit, which will be returned within 21 days of move-out, less any lawful deductions.</p></div>
+            <div class="lease-section"><p class="lease-section-header">7. OCCUPANTS.</p><p>The Premises are to be occupied only by the Tenant and any listed occupants.</p></div>
+            <!-- ALL OTHER SECTIONS OF MASTER LEASE IN FULL -->
+            <div class="lease-section"><p class="lease-section-header">8. UTILITIES.</p><p>Tenant is responsible for arranging and paying for all utility services required on the Premises.</p></div>
+            <div class="lease-section"><p class="lease-section-header">9. PARKING.</p><p>Parking is not included with this lease. Any parking arrangements are separate from this agreement.</p></div>
+            <div class="lease-section"><p class="lease-section-header">10. PETS.</p><p>No animals are allowed on the Premises without the prior written consent of the Landlord.</p></div>
+            <div class="lease-section"><p class="lease-section-header">11. NOISE.</p><p>Tenant agrees not to cause or allow any noise or activity on the Premises which might disturb the peace and quiet of another tenant or neighbor.</p></div>
+            <div class="lease-section"><p class="lease-section-header">12. MAINTENANCE AND REPAIRS.</p><p>Tenant will, at their sole expense, keep and maintain the Premises in good, clean, and sanitary condition.</p></div>
+            <div class="lease-section"><p class="lease-section-header">13. ALTERATIONS.</p><p>Tenant shall not make any alterations to the buildings or improvements on the Premises without the prior written consent of the Landlord.</p></div>
+            <div class="lease-section"><p class="lease-section-header">14. RIGHT OF ENTRY.</p><p>Landlord shall have the right to enter the Premises during normal working hours by providing at least twenty-four (24) hours’ notice for any reasonable purpose.</p></div>
+            <div class="lease-section"><p class="lease-section-header">15. ASSIGNMENT AND SUBLETTING.</p><p>The Tenant shall not assign this Agreement or sublet any portion of the Premises without prior written consent of the Landlord, which shall not be unreasonably withheld.</p></div>
+            <div class="lease-section"><p class="lease-section-header">16. GOVERNING LAW.</p><p>This Agreement shall be governed by the laws of the state of California.</p></div>
+            <div class="lease-section"><p class="lease-section-header">17. ENTIRE AGREEMENT.</p><p>This Agreement contains all the terms agreed to by the Parties. IN WITNESS THEREOF, the Parties have caused this Agreement to be executed.</p></div>
             <!-- MASTER LEASE SIGNATURE AREA -->
             <div style="margin-top: 50px;">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
@@ -244,53 +256,21 @@
         <!-- SUBLEASE AGREEMENT SECTION (HIDDEN BY DEFAULT) -->
         <div id="sublease-output" class="page-break" style="display:none;">
             <div class="lease-header">SUBLEASE AGREEMENT</div>
-            <div class="lease-section">
-                <p class="lease-section-header">1. THE PARTIES.</p>
-                <p>This Sublease Agreement (the "Sublease") is made on <span class="data-placeholder" id="sublease-agreementDate-output">[Date]</span>, between:
-                <br><strong>Sublessor:</strong> <span class="data-placeholder" id="sublessorName-output">[Original Tenant Name]</span>.
-                <br><strong>Subtenant:</strong> <span class="data-placeholder" id="subtenantName-output">[Subtenant Name]</span>.
-                <br>The property is owned by the original Landlord: <span class="data-placeholder" id="sublease-landlordName-output">[Original Landlord Name]</span>.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">2. THE PROPERTY.</p>
-                <p>The Sublessor agrees to sublet the property located at <span class="data-placeholder" id="sublease-propertyAddress-output">[Property Address]</span> (the "Premises") to the Subtenant.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">3. TERM.</p>
-                <p>The term of this Sublease shall be from <span class="data-placeholder" id="sublease-startDate-output">[Start Date]</span> to <span class="data-placeholder" id="sublease-endDate-output">[End Date]</span>.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">4. RENT.</p>
-                <p>The Subtenant shall pay $<span class="data-placeholder" id="sublease-rentAmount-output">[Rent]</span> per month to the Sublessor.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">5. SECURITY DEPOSIT.</p>
-                <p>The Subtenant shall pay a security deposit of $<span class="data-placeholder" id="sublease-securityDeposit-output">[Deposit]</span> to the Sublessor.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">6. MASTER LEASE.</p>
-                <p>This Sublease is subject to and incorporates all terms, conditions, and obligations of the original lease agreement between the Sublessor and the Landlord (the "Master Lease"). The Subtenant agrees to assume all obligations of the Sublessor under the Master Lease for the term of this Sublease.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">7. LANDLORD'S CONSENT.</p>
-                <p>This Sublease is contingent upon the written consent of the Landlord of the Master Lease. The Sublessor agrees to obtain such consent.</p>
-            </div>
-            <div class="lease-section">
-                <p class="lease-section-header">8. GOVERNING LAW.</p>
-                <p>This agreement shall be governed by the laws of the state of California.</p>
-            </div>
+            <div class="lease-section"><p class="lease-section-header">1. THE PARTIES.</p><p>This Sublease Agreement (the "Sublease") is made on <span class="data-placeholder" id="sublease-agreementDate-output"></span>, between: <strong>Sublessor:</strong> <span class="data-placeholder" id="sublessorName-output"></span>, who is the original tenant, and <strong>Subtenant:</strong> <span class="data-placeholder" id="subtenantName-output"></span>. The original Landlord is <span class="data-placeholder" id="sublease-landlordName-output"></span>.</p></div>
+            <div class="lease-section"><p class="lease-section-header">2. THE PROPERTY.</p><p>The Sublessor agrees to sublet the property at <span class="data-placeholder" id="sublease-propertyAddress-output"></span> (the "Premises") to the Subtenant.</p></div>
+            <div class="lease-section"><p class="lease-section-header">3. TERM.</p><p>The term of this Sublease shall be from <span class="data-placeholder" id="sublease-startDate-output"></span> to <span class="data-placeholder" id="sublease-endDate-output"></span>.</p></div>
+            <div class="lease-section"><p class="lease-section-header">4. RENT.</p><p>The Subtenant shall pay $<span class="data-placeholder" id="sublease-rentAmount-output"></span> per month to the Sublessor.</p></div>
+            <div class="lease-section"><p class="lease-section-header">5. SECURITY DEPOSIT.</p><p>The Subtenant shall pay a security deposit of $<span class="data-placeholder" id="sublease-securityDeposit-output"></span> to the Sublessor.</p></div>
+            <div class="lease-section"><p class="lease-section-header">6. MASTER LEASE.</p><p>This Sublease is subject to all terms of the original lease agreement between the Sublessor and the Landlord (the "Master Lease"). The Subtenant agrees to assume all obligations of the Sublessor under the Master Lease.</p></div>
+            <div class="lease-section"><p class="lease-section-header">7. LANDLORD'S CONSENT.</p><p>This Sublease is contingent upon the written consent of the Landlord of the Master Lease.</p></div>
+             <div class="lease-section"><p class="lease-section-header">8. GOVERNING LAW.</p><p>This agreement shall be governed by the laws of the state of California.</p></div>
             <!-- SUBLEASE SIGNATURE AREA -->
             <div style="margin-top: 50px;">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
                     <div><strong>Sublessor's Signature:</strong><div id="sublessorSignatureDisplay" class="signature-display"></div><strong>Printed Name:</strong><div id="sublessorPrintedName" class="printed-name-area"></div></div>
                     <div><strong>Subtenant's Signature:</strong><div id="subtenantSignatureDisplay" class="signature-display"></div><strong>Printed Name:</strong><div id="subtenantPrintedName" class="printed-name-area"></div></div>
                 </div>
-                 <div style="margin-top:40px;">
-                    <strong>Landlord's Consent & Signature:</strong>
-                    <div style="min-height: 60px; border-bottom: 1px solid #333; margin-top:5px;"></div>
-                    <strong>Printed Name:</strong>
-                    <div class="printed-name-area" style="width: 50%;"></div>
-                </div>
+                 <div style="margin-top:40px;"><strong>Landlord's Consent & Signature:</strong><div style="min-height: 60px; border-bottom: 1px solid #333; margin-top:5px;"></div><strong>Printed Name:</strong><div class="printed-name-area" style="width: 50%;"></div></div>
             </div>
         </div>
 
@@ -301,105 +281,27 @@
 </div>
 
 <script>
-    function formatDate(dateString) {
-        if (!dateString) return '[Date]';
-        const date = new Date(dateString);
-        const userTimezoneOffset = date.getTimezoneOffset() * 60000;
-        return new Date(date.getTime() + userTimezoneOffset).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
-    // Toggle for sublease form
-    document.getElementById('generateSubleaseToggle').addEventListener('change', function() {
-        const subleaseFields = document.getElementById('sublease-form-fields');
-        subleaseFields.style.display = this.checked ? 'block' : 'none';
-    });
-
-    // Main generate button
+    function formatDate(dateString) { if (!dateString) return '[Date]'; const date = new Date(dateString); const userTimezoneOffset = date.getTimezoneOffset() * 60000; return new Date(date.getTime() + userTimezoneOffset).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
+    document.getElementById('generateSubleaseToggle').addEventListener('change', function() { document.getElementById('sublease-form-fields').style.display = this.checked ? 'block' : 'none'; });
     document.getElementById('generateButton').addEventListener('click', function() {
-        // --- Gather Master Lease Data ---
-        const masterLeaseData = {
-            agreementDate: formatDate(document.getElementById('agreementDate').value),
-            propertyAddress: document.getElementById('propertyAddress').value,
-            landlordName: document.getElementById('landlordName').value,
-            landlordAddress: document.getElementById('landlordAddress').value,
-            tenantName: document.getElementById('tenantName').value,
-            landlordSignatureName: document.getElementById('landlordSignatureName').value,
-            tenantSignatureName: document.getElementById('tenantSignatureName').value
-        };
-        
-        // --- Populate Master Lease ---
-        document.getElementById('landlordSignatureDisplay').textContent = masterLeaseData.landlordSignatureName;
-        document.getElementById('landlordPrintedName').textContent = masterLeaseData.landlordSignatureName;
-        document.getElementById('tenantSignatureDisplay').textContent = masterLeaseData.tenantSignatureName;
-        document.getElementById('tenantPrintedName').textContent = masterLeaseData.tenantName;
-        
-        // --- Handle Sublease ---
-        const isSublease = document.getElementById('generateSubleaseToggle').checked;
-        const subleaseOutput = document.getElementById('sublease-output');
-
+        const masterLeaseData = { agreementDate: formatDate(document.getElementById('agreementDate').value), propertyAddress: document.getElementById('propertyAddress').value, landlordName: document.getElementById('landlordName').value, landlordAddress: document.getElementById('landlordAddress').value, tenantName: document.getElementById('tenantName').value, leaseStartDate: formatDate(document.getElementById('leaseStartDate').value), leaseEndDate: formatDate(document.getElementById('leaseEndDate').value), rentAmount: document.getElementById('rentAmount').value, securityDepositAmount: document.getElementById('securityDepositAmount').value, landlordSignatureName: document.getElementById('landlordSignatureName').value, tenantSignatureName: document.getElementById('tenantSignatureName').value };
+        document.getElementById('agreementDate-output').textContent = masterLeaseData.agreementDate; document.getElementById('propertyAddress-output').textContent = masterLeaseData.propertyAddress; document.getElementById('landlordName-output').textContent = masterLeaseData.landlordName; document.getElementById('landlordAddress-output').textContent = masterLeaseData.landlordAddress; document.getElementById('tenantName-output').textContent = masterLeaseData.tenantName; document.getElementById('leaseStartDate-output').textContent = masterLeaseData.leaseStartDate; document.getElementById('leaseEndDate-output').textContent = masterLeaseData.leaseEndDate; document.getElementById('rentAmount-output').textContent = masterLeaseData.rentAmount; document.getElementById('securityDepositAmount-output').textContent = masterLeaseData.securityDepositAmount; document.getElementById('landlordSignatureDisplay').textContent = masterLeaseData.landlordSignatureName; document.getElementById('landlordPrintedName').textContent = masterLeaseData.landlordSignatureName; document.getElementById('tenantSignatureDisplay').textContent = masterLeaseData.tenantSignatureName; document.getElementById('tenantPrintedName').textContent = masterLeaseData.tenantName;
+        const isSublease = document.getElementById('generateSubleaseToggle').checked; const subleaseOutput = document.getElementById('sublease-output');
         if (isSublease) {
-            const subleaseData = {
-                subtenantName: document.getElementById('subtenantName').value,
-                subtenantSignatureName: document.getElementById('subtenantSignatureName').value,
-                startDate: formatDate(document.getElementById('subleaseStartDate').value),
-                endDate: formatDate(document.getElementById('subleaseEndDate').value),
-                rent: document.getElementById('subleaseRentAmount').value,
-                deposit: document.getElementById('subleaseSecurityDeposit').value
-            };
-            
-            // Populate sublease placeholders
-            document.getElementById('sublease-agreementDate-output').textContent = masterLeaseData.agreementDate;
-            document.getElementById('sublessorName-output').textContent = masterLeaseData.tenantName;
-            document.getElementById('subtenantName-output').textContent = subleaseData.subtenantName;
-            document.getElementById('sublease-landlordName-output').textContent = masterLeaseData.landlordName;
-            document.getElementById('sublease-propertyAddress-output').textContent = masterLeaseData.propertyAddress;
-            document.getElementById('sublease-startDate-output').textContent = subleaseData.startDate;
-            document.getElementById('sublease-endDate-output').textContent = subleaseData.endDate;
-            document.getElementById('sublease-rentAmount-output').textContent = subleaseData.rent;
-            document.getElementById('sublease-securityDeposit-output').textContent = subleaseData.deposit;
-            
-            // Populate sublease signatures
-            document.getElementById('sublessorSignatureDisplay').textContent = masterLeaseData.tenantSignatureName;
-            document.getElementById('sublessorPrintedName').textContent = masterLeaseData.tenantName;
-            document.getElementById('subtenantSignatureDisplay').textContent = subleaseData.subtenantSignatureName;
-            document.getElementById('subtenantPrintedName').textContent = subleaseData.subtenantName;
-
+            const subleaseData = { subtenantName: document.getElementById('subtenantName').value, subtenantSignatureName: document.getElementById('subtenantSignatureName').value, startDate: formatDate(document.getElementById('subleaseStartDate').value), endDate: formatDate(document.getElementById('subleaseEndDate').value), rent: document.getElementById('subleaseRentAmount').value, deposit: document.getElementById('subleaseSecurityDeposit').value };
+            document.getElementById('sublease-agreementDate-output').textContent = masterLeaseData.agreementDate; document.getElementById('sublessorName-output').textContent = masterLeaseData.tenantName; document.getElementById('subtenantName-output').textContent = subleaseData.subtenantName; document.getElementById('sublease-landlordName-output').textContent = masterLeaseData.landlordName; document.getElementById('sublease-propertyAddress-output').textContent = masterLeaseData.propertyAddress; document.getElementById('sublease-startDate-output').textContent = subleaseData.startDate; document.getElementById('sublease-endDate-output').textContent = subleaseData.endDate; document.getElementById('sublease-rentAmount-output').textContent = subleaseData.rent; document.getElementById('sublease-securityDeposit-output').textContent = subleaseData.deposit; document.getElementById('sublessorSignatureDisplay').textContent = masterLeaseData.tenantSignatureName; document.getElementById('sublessorPrintedName').textContent = masterLeaseData.tenantName; document.getElementById('subtenantSignatureDisplay').textContent = subleaseData.subtenantSignatureName; document.getElementById('subtenantPrintedName').textContent = subleaseData.subtenantName;
             subleaseOutput.style.display = 'block';
-        } else {
-            subleaseOutput.style.display = 'none';
-        }
-        
-        // Show the populated lease
-        document.getElementById('lease-output-container').style.display = 'block';
-        document.getElementById('form-hub').style.display = 'none';
-        window.scrollTo(0, 0);
+        } else { subleaseOutput.style.display = 'none'; }
+        document.getElementById('lease-output-container').style.display = 'block'; document.getElementById('form-hub').style.display = 'none'; window.scrollTo(0, 0);
     });
-
     document.getElementById('pdfButton').addEventListener('click', function() {
-        const leaseOutput = document.getElementById('lease-output-container');
-        const hiddenElements = leaseOutput.querySelectorAll('.no-print');
-        
+        const leaseOutput = document.getElementById('lease-output-container'); const hiddenElements = leaseOutput.querySelectorAll('.no-print');
         hiddenElements.forEach(el => el.style.display = 'none');
-
         html2canvas(leaseOutput, { scale: 2, useCORS: true }).then(canvas => {
             hiddenElements.forEach(el => el.style.display = 'block');
-            const imgData = canvas.toDataURL('image/png');
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const imgHeight = canvas.height * pdfWidth / canvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
-
-            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-            heightLeft -= pdf.internal.pageSize.getHeight();
-
-            while (heightLeft > 0) {
-                position = -heightLeft;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                heightLeft -= pdf.internal.pageSize.getHeight();
-            }
+            const imgData = canvas.toDataURL('image/png'); const { jsPDF } = window.jspdf; const pdf = new jsPDF('p', 'mm', 'a4'); const pdfWidth = pdf.internal.pageSize.getWidth(); const imgHeight = canvas.height * pdfWidth / canvas.width; let heightLeft = imgHeight; let position = 0;
+            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight); heightLeft -= pdf.internal.pageSize.getHeight();
+            while (heightLeft > 0) { position = -heightLeft; pdf.addPage(); pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight); heightLeft -= pdf.internal.pageSize.getHeight(); }
             pdf.save('Complete-Lease-Package.pdf');
         });
     });
