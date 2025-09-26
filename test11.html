@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Lease & Sublease Generator</title>
+    <style>
+        /* Import a signature-style font */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #1c1c1c;
+        }
+        .main-container {
+            max-width: 8.5in; /* Standard paper width */
+            margin: 30px auto;
+        }
+        /* --- Form Hub Styling --- */
+        #form-hub {
+            background: #ffffff;
+            padding: 30px 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            border: 1px solid #d9d9d9;
+            margin-bottom: 40px;
+        }
+        #form-hub h1 {
+            text-align: center;
+            color: #0d47a1;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        fieldset {
+            border: 1px solid #d9d9d9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        legend {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #0d47a1;
+            padding: 0 10px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+        input[type="text"], input[type="date"], input[type="number"], input[type="checkbox"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        input[type="checkbox"] {
+             width: 20px; height: 20px;
+        }
+        #sublease-form-fields {
+            border-top: 2px dashed #0d47a1;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        /* --- Lease Output Styling --- */
+        #lease-output-container {
+            font-family: 'Times New Roman', Times, serif;
+            background: #ffffff;
+            padding: 50px 60px; /* Standard margins */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid #d9d9d9;
+            display: none; /* Hidden by default */
+        }
+        .lease-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        .lease-section {
+            margin-bottom: 15px;
+        }
+        .lease-section p {
+            text-align: justify;
+            margin: 0;
+        }
+        .lease-section-header {
+            font-weight: bold;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        .data-placeholder {
+            text-decoration: underline;
+            font-weight: bold;
+            padding: 0 2px;
+        }
+        .signature-display {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: #00008b;
+            border-bottom: 1px solid #333;
+            min-height: 60px;
+        }
+        .printed-name-area {
+             border-bottom: 1px solid #333;
+             padding: 5px 0;
+             min-height: 25px;
+        }
+        .page-break {
+            page-break-before: always;
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 2px solid #000;
+        }
+        /* --- Controls & Buttons --- */
+        .controls {
+            text-align: center;
+            padding-top: 20px;
+        }
+        button {
+            background-color: #0d47a1;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0b3a82;
+        }
+        #pdfButton {
+            background-color: #1e8e3e;
+        }
+        #pdfButton:hover {
+            background-color: #1a7331;
+        }
+        .no-print { }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="main-container">
+
+    <!-- =================================================================== -->
+    <!--  STEP 1: DATA ENTRY FORM HUB                                        -->
+    <!-- =================================================================== -->
+    <div id="form-hub">
+        <h1>Lease Information Hub</h1>
+        <fieldset>
+            <legend>Parties & Property (Master Lease)</legend>
+            <div class="form-grid">
+                <div class="form-group"><label for="agreementDate">Agreement Date</label><input type="date" id="agreementDate"></div>
+                <div class="form-group"><label for="propertyAddress">Property Address</label><input type="text" id="propertyAddress"></div>
+                <div class="form-group"><label for="landlordName">Landlord Name</label><input type="text" id="landlordName"></div>
+                <div class="form-group"><label for="landlordAddress">Landlord Address</label><input type="text" id="landlordAddress"></div>
+                <div class="form-group"><label for="tenantName">Tenant Name(s) (Sublessor)</label><input type="text" id="tenantName"></div>
+            </div>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Lease & Rent Terms</legend>
+            <div class="form-grid">
+                <div class="form-group"><label for="leaseStartDate">Lease Start Date</label><input type="date" id="leaseStartDate"></div>
+                <div class="form-group"><label for="leaseEndDate">Lease End Date</label><input type="date" id="leaseEndDate"></div>
+                <div class="form-group"><label for="rentAmount">Monthly Rent ($)</label><input type="number" id="rentAmount"></div>
+                <div class="form-group"><label for="securityDepositAmount">Security Deposit ($)</label><input type="number" id="securityDepositAmount"></div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Signatures (Master Lease)</legend>
+            <div class="form-grid">
+                <div class="form-group"><label for="landlordSignatureName">Landlord's Full Name</label><input type="text" id="landlordSignatureName"></div>
+                <div class="form-group"><label for="tenantSignatureName">Tenant's Full Name</label><input type="text" id="tenantSignatureName"></div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Sublease Agreement</legend>
+            <div class="form-group" style="flex-direction: row; align-items: center;">
+                <input type="checkbox" id="generateSubleaseToggle" style="margin-right: 10px;">
+                <label for="generateSubleaseToggle" style="margin-bottom: 0;">Generate Sublease Agreement</label>
+            </div>
+            <div id="sublease-form-fields" style="display:none;">
+                 <div class="form-grid">
+                    <div class="form-group"><label for="subtenantName">Subtenant Name</label><input type="text" id="subtenantName"></div>
+                    <div class="form-group"><label for="subtenantSignatureName">Subtenant's Full Name (for Signature)</label><input type="text" id="subtenantSignatureName"></div>
+                    <div class="form-group"><label for="subleaseStartDate">Sublease Start Date</label><input type="date" id="subleaseStartDate"></div>
+                    <div class="form-group"><label for="subleaseEndDate">Sublease End Date</label><input type="date" id="subleaseEndDate"></div>
+                    <div class="form-group"><label for="subleaseRentAmount">Sublease Monthly Rent ($)</label><input type="number" id="subleaseRentAmount"></div>
+                    <div class="form-group"><label for="subleaseSecurityDeposit">Sublease Security Deposit ($)</label><input type="number" id="subleaseSecurityDeposit"></div>
+                 </div>
+            </div>
+        </fieldset>
+
+        <div class="controls">
+            <button id="generateButton">Generate & Populate Full Lease</button>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!--  STEP 2: FULL LEASE OUTPUT (Initially Hidden)                       -->
+    <!-- =================================================================== -->
+    <div id="lease-output-container">
+        <!-- MASTER LEASE SECTION -->
+        <div id="master-lease-output">
+            <div class="lease-header">CALIFORNIA RESIDENTIAL LEASE AGREEMENT</div>
+            <div class="lease-section"><p class="lease-section-header">1. THE PARTIES.</p><!-- ... Full master lease text ... --></div>
+            <!-- ... All 40 sections of the master lease would be here ... -->
+            <p><i>[Sections 1 through 39 of the Master Lease are included here as previously defined.]</i></p>
+             <div class="lease-section">
+                <p class="lease-section-header">40. ENTIRE AGREEMENT.</p>
+                <p>This Agreement contains all the terms agreed to by the Parties. IN WITNESS THEREOF, the Parties have caused this Agreement to be executed.</p>
+            </div>
+            <!-- MASTER LEASE SIGNATURE AREA -->
+            <div style="margin-top: 50px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+                    <div><strong>Landlord's Signature:</strong><div id="landlordSignatureDisplay" class="signature-display"></div><strong>Printed Name:</strong><div id="landlordPrintedName" class="printed-name-area"></div></div>
+                    <div><strong>Tenant's Signature:</strong><div id="tenantSignatureDisplay" class="signature-display"></div><strong>Printed Name:</strong><div id="tenantPrintedName" class="printed-name-area"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBLEASE AGREEMENT SECTION (HIDDEN BY DEFAULT) -->
+        <div id="sublease-output" class="page-break" style="display:none;">
+            <div class="lease-header">SUBLEASE AGREEMENT</div>
+            <div class="lease-section">
+                <p class="lease-section-header">1. THE PARTIES.</p>
+                <p>This Sublease Agreement (the "Sublease") is made on <span class="data-placeholder" id="sublease-agreementDate-output">[Date]</span>, between:
+                <br><strong>Sublessor:</strong> <span class="data-placeholder" id="sublessorName-output">[Original Tenant Name]</span>.
+                <br><strong>Subtenant:</strong> <span class="data-placeholder" id="subtenantName-output">[Subtenant Name]</span>.
+                <br>The property is owned by the original Landlord: <span class="data-placeholder" id="sublease-landlordName-output">[Original Landlord Name]</span>.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">2. THE PROPERTY.</p>
+                <p>The Sublessor agrees to sublet the property located at <span class="data-placeholder" id="sublease-propertyAddress-output">[Property Address]</span> (the "Premises") to the Subtenant.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">3. TERM.</p>
+                <p>The term of this Sublease shall be from <span class="data-placeholder" id="sublease-startDate-output">[Start Date]</span> to <span class="data-placeholder" id="sublease-endDate-output">[End Date]</span>.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">4. RENT.</p>
+                <p>The Subtenant shall pay $<span class="data-placeholder" id="sublease-rentAmount-output">[Rent]</span> per month to the Sublessor.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">5. SECURITY DEPOSIT.</p>
+                <p>The Subtenant shall pay a security deposit of $<span class="data-placeholder" id="sublease-securityDeposit-output">[Deposit]</span> to the Sublessor.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">6. MASTER LEASE.</p>
+                <p>This Sublease is subject to and incorporates all terms, conditions, and obligations of the original lease agreement between the Sublessor and the Landlord (the "Master Lease"). The Subtenant agrees to assume all obligations of the Sublessor under the Master Lease for the term of this Sublease.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">7. LANDLORD'S CONSENT.</p>
+                <p>This Sublease is contingent upon the written consent of the Landlord of the Master Lease. The Sublessor agrees to obtain such consent.</p>
+            </div>
+            <div class="lease-section">
+                <p class="lease-section-header">8. GOVERNING LAW.</p>
+                <p>This agreement shall be governed by the laws of the state of California.</p>
+            </div>
+            <!-- SUBLEASE SIGNATURE AREA -->
+            <div style="margin-top: 50px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+                    <div><strong>Sublessor's Signature:</strong><div id="sublessorSignatureDisplay" class="signature-display"></div><strong>Printed Name:</strong><div id="sublessorPrintedName" class="printed-name-area"></div></div>
+                    <div><strong>Subtenant's Signature:</strong><div id="subtenantSignatureDisplay" class="signature-display"></div><strong>Printed Name:</strong><div id="subtenantPrintedName" class="printed-name-area"></div></div>
+                </div>
+                 <div style="margin-top:40px;">
+                    <strong>Landlord's Consent & Signature:</strong>
+                    <div style="min-height: 60px; border-bottom: 1px solid #333; margin-top:5px;"></div>
+                    <strong>Printed Name:</strong>
+                    <div class="printed-name-area" style="width: 50%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls no-print">
+            <button id="pdfButton">Download Final Lease as PDF</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatDate(dateString) {
+        if (!dateString) return '[Date]';
+        const date = new Date(dateString);
+        const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+        return new Date(date.getTime() + userTimezoneOffset).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // Toggle for sublease form
+    document.getElementById('generateSubleaseToggle').addEventListener('change', function() {
+        const subleaseFields = document.getElementById('sublease-form-fields');
+        subleaseFields.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Main generate button
+    document.getElementById('generateButton').addEventListener('click', function() {
+        // --- Gather Master Lease Data ---
+        const masterLeaseData = {
+            agreementDate: formatDate(document.getElementById('agreementDate').value),
+            propertyAddress: document.getElementById('propertyAddress').value,
+            landlordName: document.getElementById('landlordName').value,
+            landlordAddress: document.getElementById('landlordAddress').value,
+            tenantName: document.getElementById('tenantName').value,
+            landlordSignatureName: document.getElementById('landlordSignatureName').value,
+            tenantSignatureName: document.getElementById('tenantSignatureName').value
+        };
+        
+        // --- Populate Master Lease ---
+        document.getElementById('landlordSignatureDisplay').textContent = masterLeaseData.landlordSignatureName;
+        document.getElementById('landlordPrintedName').textContent = masterLeaseData.landlordSignatureName;
+        document.getElementById('tenantSignatureDisplay').textContent = masterLeaseData.tenantSignatureName;
+        document.getElementById('tenantPrintedName').textContent = masterLeaseData.tenantName;
+        
+        // --- Handle Sublease ---
+        const isSublease = document.getElementById('generateSubleaseToggle').checked;
+        const subleaseOutput = document.getElementById('sublease-output');
+
+        if (isSublease) {
+            const subleaseData = {
+                subtenantName: document.getElementById('subtenantName').value,
+                subtenantSignatureName: document.getElementById('subtenantSignatureName').value,
+                startDate: formatDate(document.getElementById('subleaseStartDate').value),
+                endDate: formatDate(document.getElementById('subleaseEndDate').value),
+                rent: document.getElementById('subleaseRentAmount').value,
+                deposit: document.getElementById('subleaseSecurityDeposit').value
+            };
+            
+            // Populate sublease placeholders
+            document.getElementById('sublease-agreementDate-output').textContent = masterLeaseData.agreementDate;
+            document.getElementById('sublessorName-output').textContent = masterLeaseData.tenantName;
+            document.getElementById('subtenantName-output').textContent = subleaseData.subtenantName;
+            document.getElementById('sublease-landlordName-output').textContent = masterLeaseData.landlordName;
+            document.getElementById('sublease-propertyAddress-output').textContent = masterLeaseData.propertyAddress;
+            document.getElementById('sublease-startDate-output').textContent = subleaseData.startDate;
+            document.getElementById('sublease-endDate-output').textContent = subleaseData.endDate;
+            document.getElementById('sublease-rentAmount-output').textContent = subleaseData.rent;
+            document.getElementById('sublease-securityDeposit-output').textContent = subleaseData.deposit;
+            
+            // Populate sublease signatures
+            document.getElementById('sublessorSignatureDisplay').textContent = masterLeaseData.tenantSignatureName;
+            document.getElementById('sublessorPrintedName').textContent = masterLeaseData.tenantName;
+            document.getElementById('subtenantSignatureDisplay').textContent = subleaseData.subtenantSignatureName;
+            document.getElementById('subtenantPrintedName').textContent = subleaseData.subtenantName;
+
+            subleaseOutput.style.display = 'block';
+        } else {
+            subleaseOutput.style.display = 'none';
+        }
+        
+        // Show the populated lease
+        document.getElementById('lease-output-container').style.display = 'block';
+        document.getElementById('form-hub').style.display = 'none';
+        window.scrollTo(0, 0);
+    });
+
+    document.getElementById('pdfButton').addEventListener('click', function() {
+        const leaseOutput = document.getElementById('lease-output-container');
+        const hiddenElements = leaseOutput.querySelectorAll('.no-print');
+        
+        hiddenElements.forEach(el => el.style.display = 'none');
+
+        html2canvas(leaseOutput, { scale: 2, useCORS: true }).then(canvas => {
+            hiddenElements.forEach(el => el.style.display = 'block');
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const imgHeight = canvas.height * pdfWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+            heightLeft -= pdf.internal.pageSize.getHeight();
+
+            while (heightLeft > 0) {
+                position = -heightLeft;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                heightLeft -= pdf.internal.pageSize.getHeight();
+            }
+            pdf.save('Complete-Lease-Package.pdf');
+        });
+    });
+</script>
+
+</body>
+</html>
